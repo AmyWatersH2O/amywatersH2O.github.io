@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>The Premodern Nerd</title> 
+        <style>
+            body {
+                background: rgb(213, 234, 242);
+                color: rgb(45, 45, 45);
+                padding: 10px;
+                font-family: arial;
+            }
+            #all-contents {
+              max-width: 800px;
+                margin: auto;
+            }
+         
+            /* navigation menu */
+            nav {
+                background: rgb(110, 7, 17);
+               margin: 0 auto;
+               margin-bottom: 20px;
+                display: flex;
+                padding: 10px;
+            }
+            h1 {
+                display: flex;
+                align-items: center;
+                color: rgb(242, 235, 212);
+                flex: 1;
+                margin: 0;
+            }
+            #nav-ul {
+                list-style-image: none;
+            }
+            .nav-li {
+                display: inline-block;
+                padding: 0 10px;
+            }
+            a {
+                text-decoration: none;
+                color: rgb(242, 235, 212);
+            }
+            
+            .a-sidebar {
+                text-decoration: underline;
+                color:rgb(110, 7, 17);
+            }
+         
+            /* main container area beneath menu */
+            main {
+                background: rgb(242, 235, 212);
+                display: flex;
+            }
+            .sidebar {
+                margin-right: 25px;
+                padding: 10px;
+            }
+            .sidebar-img {
+                width: 200px;
+                border: 4px rgb(110, 7, 17) ridge;
+                border-radius: 18px;
+                padding: 8px;
+            }
+            .content {
+                flex: 1;
+                padding: 15px;
+            }
+            #interests {
+                border: 4px rgb(110, 7, 17) ridge;
+                border-radius: 18px;
+                padding: 8px;
+            }
+            h2, h3 {
+                margin: 0px;
+            }
+         </style>
+    </head>
+
+    <body>
+        <!--All content goes here-->
+       <div id="all-contents">
+            
+            <nav>
+                <h1>The Life and Times of a Premodern Nerd</h1>
+                <ul id="nav-ul">
+                    <li class="nav-li">
+                        <a href="index.html"> Home </a>
+                    </li>
+                    <li class="nav-li">
+                        <a href="portfolio.html"> Portfolio </a>
+                    </li>
+                </ul>
+            </nav>
+            <main>
+                <!--Insert sidebar elements here-->
+                <div class="sidebar">
+                    <img class="sidebar-img"; src="https://scontent-atl3-2.xx.fbcdn.net/v/t1.6435-9/59405267_10156873454882626_7732709851872100352_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=g8RjCI9LDLUAX_4ZRZ8&tn=8ZGDhKrbU3nktWt4&_nc_ht=scontent-atl3-2.xx&oh=00_AT-i0GbfLDIdfDtBelTFxtTr6z8GwokbbRG8RwbtizFFIQ&oe=621B877B">   
+                </div>
+
+                <!--Insert main content elements here-->
+                <div class="content">
+                    <h2>Amy Waters</h2>
+                    <p>Business Teacher, Hahnville High School</p>   
+
+                <!--Interest Section-->
+                <div id="interests">
+                    <h3>Interests</h3>
+                    <ul>
+                        <li>Dogs (particularly <a class="a-sidebar" href="https://en.wikipedia.org/wiki/German_Shepherd"> German Shepherds</a>), rescue and training</li>
+                        <li>Firearms and <a class="a-sidebar" href="https://en.wikipedia.org/wiki/Steel_Challenge"> Competitive Shooting</a></li>
+                        <li>Painting and Crafts</li>
+                    </ul>
+                </div>
+                </div>
+            </main>
+        </div>
+    </body>
+
+</html>
