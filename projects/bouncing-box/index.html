@@ -6,11 +6,14 @@
 	<script src="jquery.min.js"></script>
 	<style>
 		.box {
-			width: 70px;
+			width: 95px;
 			height: 70px;
-			background-color: teal;
+			background-image: url("images/Bee_right.png");
+			background-size: cover;
 			font-size: 300%;
+			color: #5f3504;
 			text-align: center;
+			font-weight: bold;
 			display: block;
 			position: absolute;
 			top: 100px;
@@ -18,6 +21,9 @@
 		}
 		.board{
 			height: 100vh;
+			background-image: url("images/sunflower_field.jpg");
+			background-size: cover;
+			background-color: lightblue;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -47,30 +53,68 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
+				box.css("top", newPositionY);
 			}
 
 			// changes the text displayed on the Box
 			function changeBoxText(newText) {
 				box.text(newText);
 			}
+			function getRandomColor(colorStr){
+				colorStr = 'rgb(' + ranColorNum + ', ' + ranColorNum + ", " + ranColorNum + ')';
+			}
 
 			//////////////////////////////////////////////////////////////////
 			/////////////////// YOUR CODE BELOW HERE /////////////////////////
 			//////////////////////////////////////////////////////////////////
 			
-			// TODO 2 - Variable declarations 
 			
 
-			
+			// TODO 2 - Variable declarations 
+			var positionX = 0;
+			var points = 0;
+			var speed = 10;
+			var positionY = 0;
+			var speedY = 7;
+			var boardHeight = jQuery(window).height(); 
+			var randNumX = Math.random() * boardWidth;
+			var randNumY = Math.random() * boardHeight;
+			var beeRight = "url(images/Bee_right.png)";
+			var beeLeft = "url(images/Bee_left.png)";
+			var colorStr = "rgb(50, 25, 250)";
+			var ranColorNum = Math.random() * 255;
+
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {
-				
+			/*Increase positionX by 10 here*/
+				positionX += speed;
+				positionY += speedY;
+				moveBoxTo(positionX, positionY);
+				if(positionX > boardWidth) {
+					speed *= -1;
+									}
+				if(positionX < 0){
+					speed *= -1;
+					
+				}
+				if(positionY > boardHeight){
+					speedY *= -1;
+				}
+				if(positionY < 0){
+					speedY *= -1;
+				}
+				if(speed > 0 ){
+                    box.css("background-image", beeRight);
+                }else {
+                    box.css("background-image", beeLeft);
+                }
+               
 
 			};
 
@@ -80,9 +124,23 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
+				positionX = randNumX;
+				positionY = randNumY;
+				points += 1;
+				getRandomColor(colorStr);
+				changeBoxText(points);
+				if(points % 3 === 0){
+                	box.css("color", colorStr);
+				}
+				if(speed >0){
+					speed += 3; 
+				}else if(speed < 0){
+					speed += -3;
+				}			
 				
 
 
+                
 			};
 		})();
 	</script>
