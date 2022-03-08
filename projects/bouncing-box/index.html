@@ -47,10 +47,11 @@
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+			var interval = setInterval(update, 50);
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
+			board.on('click', handleBoardClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
 			function moveBoxTo(newPositionX, newPositionY) {
@@ -62,8 +63,10 @@
 			function changeBoxText(newText) {
 				box.text(newText);
 			}
-			function getRandomColor(colorStr){
-				colorStr = 'rgb(' + ranColorNum + ', ' + ranColorNum + ", " + ranColorNum + ')';
+			
+
+			function endGame() {
+    			clearInterval(interval);
 			}
 
 			//////////////////////////////////////////////////////////////////
@@ -78,13 +81,26 @@
 			var speed = 10;
 			var positionY = 0;
 			var speedY = 7;
+			var clicks = 0
 			var boardHeight = jQuery(window).height(); 
 			var randNumX = Math.random() * boardWidth;
 			var randNumY = Math.random() * boardHeight;
 			var beeRight = "url(images/Bee_right.png)";
 			var beeLeft = "url(images/Bee_left.png)";
-			var colorStr = "rgb(50, 25, 250)";
-			var ranColorNum = Math.random() * 255;
+			var colorStr ;
+			var speedIncrease = 1;
+
+			function getRandomColor(colorStr){
+				var ranColorNum1 = Math.random() * 255;
+				var ranColorNum2 = Math.random() * 255;
+				var ranColorNum3 = Math.random() * 255;
+				colorStr = 'rgb(' + ranColorNum1 + ', ' + ranColorNum2 + ', ' + ranColorNum3 + ')';
+				box.css("color", colorStr);
+
+			}
+			
+			//var colorStr = "rgb(20, 200, 75)";//
+
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -127,17 +143,26 @@
 				positionX = randNumX;
 				positionY = randNumY;
 				points += 1;
-				getRandomColor(colorStr);
 				changeBoxText(points);
 				if(points % 3 === 0){
-                	box.css("color", colorStr);
+					speedIncrease += 3
+				}
+				if(points % 3 === 0){
+                	getRandomColor(colorStr);
 				}
 				if(speed >0){
-					speed += 3; 
+					speed += speedIncrease; 
 				}else if(speed < 0){
-					speed += -3;
+					speed += -speedIncrease;
 				}			
 				
+				}
+			function handleBoardClick() {
+					clicks += 1;
+					if(clicks === 10){
+						endGame();
+					alert("Game Over! Your score: " + points);
+					}
 
 
                 
