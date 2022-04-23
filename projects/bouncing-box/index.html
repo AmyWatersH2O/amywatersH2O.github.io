@@ -145,23 +145,23 @@
 				points += 1;
 				changeBoxText(points);
 				if(points % 3 === 0){
-					speedIncrease += 3
-				}
-				if(points % 3 === 0){
-                	getRandomColor(colorStr);
+					speedIncrease += 3;
+					getRandomColor(colorStr);
 				}
 				if(speed >0){
 					speed += speedIncrease; 
 				}else if(speed < 0){
 					speed += -speedIncrease;
 				}			
+			
 				
 				}
 			function handleBoardClick() {
 					clicks += 1;
-					if(clicks === 10){
+					if(clicks - points === 10){
 						endGame();
 					alert("Game Over! Your score: " + points);
+					
 					}
 
 
