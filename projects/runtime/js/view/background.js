@@ -34,14 +34,38 @@ var background = function (window) {
             background.removeAllChildren();
 
             // TODO: 2 - Part 2
-            // this fills the background with a obnoxious yellow
+            // this fills the background with an obnoxious yellow
             // you should modify this to suit your game
-            var backgroundFill = draw.rect(canvasWidth,canvasHeight,'yellow');
+            var backgroundFill = draw.rect(canvasWidth, 1000, "#1b889e");
+            //var backgroundFill = draw.bitmap("img/sea-floor-5.png");
+            //backgroundFill.scaleY = 200;
+            //backgroundFill.scaleX = canvasWidth;
             background.addChild(backgroundFill);
             
+            
             // TODO: 3 - Add a moon and starfield
+           
             
-            
+            var seaWeed = draw.bitmap("img/seaweed-rocks1.png");
+            seaWeed.x = 100;
+            seaWeed.y = 10;
+            seaWeed.scaleX = 10.0;
+            seaWeed.scaleY = 10.0;
+            background.addChild(seaWeed);
+
+            var fish = draw.bitmap("img/fish1.png");
+            //fish.scaleX = 100;
+            //fish.scaleY = 100;
+            fish.x = canvasWidth*Math.random();
+            fish.y = groundY*Math.random();
+            background.addChild(fish);
+
+            var shark = draw.bitmap("img/shark.png");
+            shark.x = canvasWidth*Math.random();
+            shark.y = groundY*Math.random();
+            //shark.scaleX = 10;
+            //shark.scaleY = 10;
+            background.addChild(shark);
             // TODO 5: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
             
             

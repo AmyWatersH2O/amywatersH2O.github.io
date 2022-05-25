@@ -32,13 +32,14 @@ var init = function (window) {
     ground = opspark.makeGround(app);
 
     // TODO 2 : add background
-
+    var background = opspark.makeBackground(app, ground);
+    view.addChild(background);
     
     var help = draw.textfield('MOVES || up: jump | right: flying jump | down: duck | space: fire | q self destruct!', 
         '20px Arial',
         '#ccc', 'left');
     help.x = 10;
-    help.y = ground.y + ground.getBounds().height + 10;
+    help.y = ground.y + ground.getBounds().height + 250;
     view.addChild(help);
     
     window.opspark.makeSpriteSheet(data)
@@ -46,7 +47,7 @@ var init = function (window) {
             spritesheet = ss;
             halle = window.opspark.makeHalle(spritesheet, particleManager,debugHalleHitZones);
             halle.x = halle.getBounds().width * 2;
-            halle.y = ground.y - halle.getBounds().height + 3;
+            halle.y = ground.y - halle.getBounds().height + 230;
             app.addUpdateable(halle);
             view.addChild(halle);
             
@@ -72,7 +73,9 @@ var init = function (window) {
     
     // TODO 1 : add a heads-up display to game
 
-
+    var hud = opspark.makeHud();
+    view.addChild(hud);
+    window.hud = hud;
 
     var game = opspark.createGameManager(app,hud);
     opspark.runLevelInGame(game);
