@@ -36,21 +36,34 @@ var background = function (window) {
             // TODO: 2 - Part 2
             // this fills the background with an obnoxious yellow
             // you should modify this to suit your game
-            var backgroundFill = draw.rect(canvasWidth, 1000, "#1b889e");
+            var backgroundFill = draw.rect(canvasWidth, 1000, "#000000");
             //var backgroundFill = draw.bitmap("img/sea-floor-5.png");
-            //backgroundFill.scaleY = 200;
+            //backgroundFill.scaleY = canvasHeight;
             //backgroundFill.scaleX = canvasWidth;
             background.addChild(backgroundFill);
             
             
             // TODO: 3 - Add a moon and starfield
            
+            var moon = draw.bitmap('img/moon.png');
+            moon.x = 200;
+            moon.y = 200;
+            moon.scaleX = 10;
+            moon.scaleY = 10;
+            background.addChild(moon);
+
+            for(var i; i<150, i++){
+            var circle = draw.circle(10, 'white', 'LightGray', 2);
+            circle.x = canvasWidth*Math.random();
+            circle.y = groundY*Math.random();
+            background.addChild(circle);
+            };
             
-            var seaWeed = draw.bitmap("img/seaweed-rocks1.png");
+            /*var seaWeed = draw.bitmap("img/seaweed-rocks1.png");
             seaWeed.x = 100;
-            seaWeed.y = 10;
-            seaWeed.scaleX = 10.0;
-            seaWeed.scaleY = 10.0;
+            seaWeed.y = 1;
+            //seaWeed.scaleX = 10.0;
+            //seaWeed.scaleY = 10.0;
             background.addChild(seaWeed);
 
             var fish = draw.bitmap("img/fish1.png");
@@ -63,9 +76,10 @@ var background = function (window) {
             var shark = draw.bitmap("img/shark.png");
             shark.x = canvasWidth*Math.random();
             shark.y = groundY*Math.random();
-            //shark.scaleX = 10;
-            //shark.scaleY = 10;
+            shark.scaleX = 10;
+            shark.scaleY = 10;
             background.addChild(shark);
+            /*
             // TODO 5: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
             
             

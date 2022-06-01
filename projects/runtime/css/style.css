@@ -14,3 +14,9 @@ canvas {
     -ms-user-select: none;
     position:absolute;
 }
+@media (max-width: 700px){
+    canvas, img {
+        max-width: 100%;
+        max-height: 100%
+    }
+}
