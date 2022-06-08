@@ -1,21 +1,38 @@
 
 body {
   background-color: darkgreen;
+  
+
 }
 
 #board {
-  width: 440px;
-  height: 440px;
-  border: 1px solid white;
-  background-color: black;
+  width: 660px;
+  height:440px;
+  border: 11px dashed rgb(153, 116, 47);
+  background-image: url("img/green-grass-field-background.png");
+  background-size: cover;
   position: relative;
 }
-
-#gameItem {
-  background-color: teal;
+#walker{
   width: 50px;
-  height: 50px;
-  position: absolute;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+  height: 70px;
+  background-image: url("img/anime-girl.png");
+  border: 5px solid;
+  border-color: red;
+  border-radius: 35px;
+  position: relative;
+  left: 0px;
+  top: 0px;
+}
+
+#dog{
+  width: 40px;
+  height: 60px;
+  border: 5px solid;
+  border-color: aqua;
+  border-radius: 25px;
+  background-image: url("img/*");
+  position: relative;
+  left: 100px;
+  top: 0px;
 }
