@@ -201,11 +201,14 @@ function runProgram(){
   }
   function changeColors(){
       if(isIt === "walker"){
-        isIt = "dog";
         $("walker").css("border-color", "bisque");
+        $("dog").css("border-color", "red");
+        isIt = "dog";
+
       }else if(isIt === "dog"){
+        $("dog").css("border-color", "aqua");
+        $("walker").css("border-color", "red");
         isIt = "walker";
-        $('dog').css("border-color", "aqua");
       }
   }
 

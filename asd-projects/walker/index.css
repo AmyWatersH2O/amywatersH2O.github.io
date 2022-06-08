@@ -4,7 +4,11 @@ body {
   
 
 }
-
+h1{
+  color:azure;
+  font-family: cursive;
+  position: center;
+}
 #board {
   width: 660px;
   height:440px;
