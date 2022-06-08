@@ -20,41 +20,43 @@ function runProgram(){
     S: 83,
     D: 68,
   }
-  var walker = {};
-  walker.topY = walkerPositionY;
-  walker.leftX = walkerPositionX;
-  walker.bottomY = walkerPositionY + WALKER_HEIGHT;
-  walker.rightX = walkerPositionX + WALKER_WIDTH;
 
-  var dog = {};
-  dog.topY = dogPositionY;
-  dog.leftX = dogPositionX;
-  dog.bottomY = dogPositionY + DOG_HEIGHT;
-  dog.rightX = dogPositionX + DOG_WIDTH;
+  var WALKER_WIDTH = 50;
+  var WALKER_HEIGHT = 90;
+
+  var DOG_WIDTH = 60;
+  var DOG_HEIGHT = 80;
+
+  var girl = {};
+  girl.topY = walkerPositionY;
+  girl.leftX = walkerPositionX;
+  girl.bottomY = walkerPositionY + WALKER_HEIGHT;
+  girl.rightX = walkerPositionX + WALKER_WIDTH;
+
+  var doggo = {};
+  doggo.topY = dogPositionY;
+  doggo.leftX = dogPositionX;
+  doggo.bottomY = dogPositionY + DOG_HEIGHT;
+  doggo.rightX = dogPositionX + DOG_WIDTH;
  
 
   var walkerSpeedX = 0;
   var walkerSpeedY = 0;
   var walkerPositionX = 0;
   var walkerPositionY = 0;
-  var WALKER_WIDTH = 50;
-  var WALKER_HEIGHT = 90;
+  
 
   var dogSpeedX = 0;
   var dogSpeedY = 0;
   var dogPositionX = 0;
   var dogPositionY = 0;
-  var DOG_WIDTH = 60;
-  var DOG_HEIGHT = 80;
   
-  var walkerColor = $("walker").css("border-color");
-  var dogColor = $("dog").css("border-color");
   
-  $('#walker').css('border-color', dogColor);
-  walkerColor = dogColor;
-
-  $('#dog').css('border-color', walkerColor);
-  dogColor = walkerColor;
+  var isIt = "walker";
+  
+  
+  
+  
 
   // Game Item Objects
 
@@ -167,15 +169,15 @@ function runProgram(){
     //keeping the dog in the box on the x axis
     if(dogPositionX <= 0){
       dogPositionX = 0;
-    }else if(dog.rightX >= 660){
-      dog.rightX = 660;
+    }else if(dogPositionX >= 610){
+      dogPositionX = 610;
     }
     dogPositionY += dogSpeedY; //update position of dog on y axis
     //Keeping the dog in the box on the y axis
     if(dogPositionY <= 0){
       dogPositionY = 0;
-    }else if(dog.bottomY >= 440){
-      dog.bottomY = 440;
+    }else if(dogPositionY >= 360){
+      dogPositionY = 360;
     }
 
   }
@@ -190,15 +192,21 @@ function runProgram(){
 
   }
   function detectCollision(){
-    if((dog.rightX > walker.leftX)  &&
-      (dog.leftX < walker.rightX) &&
-      (dog.bottomY > walker.topY) &&
-      (dog.topY < walker.bottomY) )
-    {changeColors();
+    if((doggo.rightX > girl.leftX)  &&
+      (doggo.leftX < girl.rightX) &&
+      (doggo.bottomY > girl.topY) &&
+      (doggo.topY < girl.bottomY) ){
+    changeColors();
     }
   }
   function changeColors(){
-      
+      if(isIt === "walker"){
+        isIt = "dog";
+        $("walker").css("border-color", "bisque");
+      }else if(isIt === "dog"){
+        isIt = "walker";
+        $('dog').css("border-color", "aqua");
+      }
   }
 
   function endGame() {
