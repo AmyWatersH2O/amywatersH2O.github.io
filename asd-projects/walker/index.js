@@ -20,19 +20,42 @@ function runProgram(){
     S: 83,
     D: 68,
   }
-  
+  var walker = {};
+  walker.topY = walkerPositionY;
+  walker.leftX = walkerPositionX;
+  walker.bottomY = walkerPositionY + WALKER_HEIGHT;
+  walker.rightX = walkerPositionX + WALKER_WIDTH;
+
+  var dog = {};
+  dog.topY = dogPositionY;
+  dog.leftX = dogPositionX;
+  dog.bottomY = dogPositionY + DOG_HEIGHT;
+  dog.rightX = dogPositionX + DOG_WIDTH;
+ 
+
   var walkerSpeedX = 0;
   var walkerSpeedY = 0;
   var walkerPositionX = 0;
   var walkerPositionY = 0;
+  var WALKER_WIDTH = 50;
+  var WALKER_HEIGHT = 90;
 
   var dogSpeedX = 0;
   var dogSpeedY = 0;
   var dogPositionX = 0;
   var dogPositionY = 0;
+  var DOG_WIDTH = 60;
+  var DOG_HEIGHT = 80;
   
+  var walkerColor = $("walker").css("border-color");
+  var dogColor = $("dog").css("border-color");
   
-  
+  $('#walker').css('border-color', dogColor);
+  walkerColor = dogColor;
+
+  $('#dog').css('border-color', walkerColor);
+  dogColor = walkerColor;
+
   // Game Item Objects
 
 
@@ -54,6 +77,7 @@ function runProgram(){
     redrawWalker();
     repositionDog();
     redrawDog();
+    detectCollision();
 
   }
   
@@ -126,15 +150,15 @@ function runProgram(){
     //My attempt at making the walker stay in the box on the x axis
     if(walkerPositionX <= 0){
       walkerPositionX = 0;
-    }else if(walkerPositionX >= 610){
-      walkerPositionX = 610;
+    }else if(walkerPositionX >= 600){
+      walkerPositionX = 600;
     }
     walkerPositionY += walkerSpeedY; //update position of walker om y axis
     //My attempt at making the walker stay in the box on the y axis
     if(walkerPositionY <= 0){
       walkerPositionY = 0;
-    }else if(walkerPositionY >= 370){
-      walkerPositionY = 370;
+    }else if(walkerPositionY >= 340){
+      walkerPositionY = 340;
     }
 
   }
@@ -143,15 +167,15 @@ function runProgram(){
     //keeping the dog in the box on the x axis
     if(dogPositionX <= 0){
       dogPositionX = 0;
-    }else if(dogPositionX >= 620){
-      dogPositionX = 620;
+    }else if(dog.rightX >= 660){
+      dog.rightX = 660;
     }
     dogPositionY += dogSpeedY; //update position of dog on y axis
     //Keeping the dog in the box on the y axis
     if(dogPositionY <= 0){
       dogPositionY = 0;
-    }else if(dogPositionY >= 370){
-      dogPositionY = 370;
+    }else if(dog.bottomY >= 440){
+      dog.bottomY = 440;
     }
 
   }
@@ -164,6 +188,17 @@ function runProgram(){
     $("#dog").css("left", dogPositionX)
              .css("top", dogPositionY);
 
+  }
+  function detectCollision(){
+    if((dog.rightX > walker.leftX)  &&
+      (dog.leftX < walker.rightX) &&
+      (dog.bottomY > walker.topY) &&
+      (dog.topY < walker.bottomY) )
+    {changeColors();
+    }
+  }
+  function changeColors(){
+      
   }
 
   function endGame() {
