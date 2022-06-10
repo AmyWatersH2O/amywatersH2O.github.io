@@ -48,17 +48,12 @@ function runProgram(){
 
   var dogSpeedX = 0;
   var dogSpeedY = 0;
-  var dogPositionX = 0;
+  var dogPositionX = 600;
   var dogPositionY = 0;
   
   
-  var isIt = "walker";
-  
-  
-  
-  
-
   // Game Item Objects
+  
 
 
   // one-time setup
@@ -192,23 +187,24 @@ function runProgram(){
 
   }
   function detectCollision(){
-    if((doggo.rightX > girl.leftX)  &&
+    if((doggo.rightX > girl.leftX) &&
       (doggo.leftX < girl.rightX) &&
       (doggo.bottomY > girl.topY) &&
       (doggo.topY < girl.bottomY) ){
-    changeColors();
+    alert("You're it!");
     }
   }
   function changeColors(){
-      if(isIt === "walker"){
+    var isIt = "playerRight";
+      if(isIt === "playerRight"){
         $("walker").css("border-color", "bisque");
         $("dog").css("border-color", "red");
-        isIt = "dog";
+        isIt = "playerLeft";
 
-      }else if(isIt === "dog"){
+      }else if(isIt === "playerLeft"){
         $("dog").css("border-color", "aqua");
         $("walker").css("border-color", "red");
-        isIt = "walker";
+        isIt = "playerRight";
       }
   }
 
