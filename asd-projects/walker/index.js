@@ -27,19 +27,6 @@ function runProgram(){
   var DOG_WIDTH = 60;
   var DOG_HEIGHT = 80;
 
-  var girl = {};
-  girl.topY = walkerPositionY;
-  girl.leftX = walkerPositionX;
-  girl.bottomY = walkerPositionY + WALKER_HEIGHT;
-  girl.rightX = walkerPositionX + WALKER_WIDTH;
-
-  var doggo = {};
-  doggo.topY = dogPositionY;
-  doggo.leftX = dogPositionX;
-  doggo.bottomY = dogPositionY + DOG_HEIGHT;
-  doggo.rightX = dogPositionX + DOG_WIDTH;
- 
-
   var walkerSpeedX = 0;
   var walkerSpeedY = 0;
   var walkerPositionX = 0;
@@ -53,7 +40,18 @@ function runProgram(){
   
   
   // Game Item Objects
-  
+  var girl = {};
+  girl.topY = walkerPositionY;
+  girl.leftX = walkerPositionX;
+  girl.bottomY = walkerPositionY + WALKER_HEIGHT;
+  girl.rightX = walkerPositionX + WALKER_WIDTH;
+
+  var doggo = {};
+  doggo.topY = dogPositionY;
+  doggo.leftX = dogPositionX;
+  doggo.bottomY = dogPositionY + DOG_HEIGHT;
+  doggo.rightX = dogPositionX + DOG_WIDTH;
+ 
 
 
   // one-time setup
@@ -71,8 +69,10 @@ function runProgram(){
   */
   function newFrame() {
     repositionWalker();
+    updateGirl();
     redrawWalker();
     repositionDog();
+    updateDoggo();
     redrawDog();
     detectCollision();
 
@@ -176,6 +176,20 @@ function runProgram(){
     }
 
   }
+  function updateGirl(){
+    girl.topY = walkerPositionY;
+    girl.leftX = walkerPositionX;
+    girl.bottomY = walkerPositionY + WALKER_HEIGHT;
+    girl.rightX = walkerPositionX + WALKER_WIDTH;
+
+  }
+  function updateDoggo(){
+    doggo.topY = dogPositionY;
+    doggo.leftX = dogPositionX;
+    doggo.bottomY = dogPositionY + DOG_HEIGHT;
+    doggo.rightX = dogPositionX + DOG_WIDTH;
+  }
+
   function redrawWalker(){
     $("#walker").css("left", walkerPositionX)
                 .css("top", walkerPositionY);
@@ -191,7 +205,7 @@ function runProgram(){
       (doggo.leftX < girl.rightX) &&
       (doggo.bottomY > girl.topY) &&
       (doggo.topY < girl.bottomY) ){
-    alert("You're it!");
+    changeColors();
     }
   }
   function changeColors(){
