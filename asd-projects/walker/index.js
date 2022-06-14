@@ -208,16 +208,17 @@ function runProgram(){
     changeColors();
     }
   }
+  var isIt = "playerRight";
   function changeColors(){
-    var isIt = "playerRight";
+    
       if(isIt === "playerRight"){
-        $("walker").css("border-color", "bisque");
-        $("dog").css("border-color", "red");
+        $("#walker").css("border-color", "bisque");
+        $("#dog").css("border-color", "red");
         isIt = "playerLeft";
 
       }else if(isIt === "playerLeft"){
-        $("dog").css("border-color", "aqua");
-        $("walker").css("border-color", "red");
+        $("#dog").css("border-color", "aqua");
+        $("#walker").css("border-color", "red");
         isIt = "playerRight";
       }
   }

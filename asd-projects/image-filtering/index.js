@@ -102,7 +102,7 @@ function smudge( ) {
 			var rgbNumbers = rgbStringToArray(rgbString);
 			var newColor = rgbNumbers.map(makeNewColor);	
 			var newRgbString = rgbArrayToString(newColor);
-			image[r+1][c+1] = newRgbString;
+			image[r][c+1] = newRgbString;
     }
   }
 }
