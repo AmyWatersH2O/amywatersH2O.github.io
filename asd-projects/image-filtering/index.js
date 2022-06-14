@@ -20,9 +20,10 @@ function resetAndRender() {
 // all of your apply functions
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
-  applyFilter(reddify);
-  applyFilterNoBackground(decreaseBlue);
-  applyFilterNoBackground(increaseGreenByBlue);
+  //applyFilter(reddify);
+  //applyFilterNoBackground(decreaseBlue);
+  //applyFilterNoBackground(increaseGreenByBlue);
+  smudge();
   
 
   // do not change the below line of code
@@ -88,3 +89,20 @@ function increaseGreenByBlue(pixelC){
 }
 
 // CHALLENGE code goes below here
+
+function  makeNewColor(num){
+	return num * .25;
+	}
+
+function smudge( ) {
+	for(var r = image.length-1; r >=0; r--){
+		var row = image[r];
+		for(var c = row.length - 2; c >= 0; c--){
+			var rgbString = image[r][c];
+			var rgbNumbers = rgbStringToArray(rgbString);
+			var newColor = rgbNumbers.map(makeNewColor);	
+			var newRgbString = rgbArrayToString(newColor);
+			image[r+1][c+1] = newRgbString;
+    }
+  }
+}

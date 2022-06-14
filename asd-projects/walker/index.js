@@ -201,10 +201,10 @@ function runProgram(){
 
   }
   function detectCollision(){
-    if((doggo.rightX > girl.leftX) &&
-      (doggo.leftX < girl.rightX) &&
-      (doggo.bottomY > girl.topY) &&
-      (doggo.topY < girl.bottomY) ){
+    if((doggo.rightX >= girl.leftX) &&
+      (doggo.leftX <= girl.rightX) &&
+      (doggo.bottomY >= girl.topY) &&
+      (doggo.topY <= girl.bottomY) ){
     changeColors();
     }
   }
