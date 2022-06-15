@@ -90,8 +90,10 @@ function increaseGreenByBlue(pixelC){
 
 // CHALLENGE code goes below here
 
-function  makeNewColor(num){
-	return num * .25;
+function  makeNewColor(color){
+    var newColor = rgbNumbers;
+    rgbNumbers[color] * .25;
+	return newColor;
 	}
 
 function smudge( ) {
@@ -100,7 +102,7 @@ function smudge( ) {
 		for(var c = row.length - 2; c >= 0; c--){
 			var rgbString = image[r][c];
 			var rgbNumbers = rgbStringToArray(rgbString);
-			var newColor = rgbNumbers.map(makeNewColor);	
+			var newColor = makeNewColor(rgbNumbers[RED]);	
 			var newRgbString = rgbArrayToString(newColor);
 			image[r][c+1] = newRgbString;
     }
