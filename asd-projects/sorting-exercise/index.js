@@ -21,6 +21,8 @@ async function bubbleSort(array){
         for(var j = array.length -1; j = i + 1; j--){
             if(array[j] < array[j] -1){
                 swap(array, array[j], array[j-1]);
+                updateCounter(bubbleCounter);
+                await sleep();
                 sorted = false;
             }
         }
