@@ -23,7 +23,8 @@ function applyAndRender() {
   //applyFilter(reddify);
   //applyFilterNoBackground(decreaseBlue);
   //applyFilterNoBackground(increaseGreenByBlue);
-  smudge(pixel1, pixel2);
+  //smudgeRight();
+  smudgeLeft();
   
 
   // do not change the below line of code
@@ -91,7 +92,7 @@ function increaseGreenByBlue(pixelC){
 // CHALLENGE code goes below here
 
 
-function smudge(pixel1, pixel2) {
+function smudgeRight() {
 	for(var r = image.length-1; r >=0; r--){
 		var row = image[r];
 		for(var c = row.length - 2; c >= 0; c--){
@@ -99,12 +100,30 @@ function smudge(pixel1, pixel2) {
       var pixel2 = image[r][c+1];
 			var rgbNumbers1 = rgbStringToArray(pixel1);
       var rgbNumbers2 = rgbStringToArray(pixel2);
-			var newColor1 = keepInBounds(rgbNumbers1[RED] - (rgbNumbers1[RED] * .25));	
-      var newColor2 = keepInBounds(rgbNumbers2[RED] + (rgbNumbers1[RED] * .25));
+			var newColor1 = keepInBounds(rgbNumbers1[RED] - (rgbNumbers1[RED] * .55));	
+      var newColor2 = keepInBounds(rgbNumbers2[RED] + (rgbNumbers1[RED] * .55));
 			rgbNumbers1 = [newColor1, rgbNumbers1[GREEN], rgbNumbers1[BLUE]];
-      rgbNumbers2 = [newColor2, rgbNumbers2[GREEN], rgbNumbers[BLUE]];
-      pixel1 = rgbArrayToString(rgbNumbers1);
-      pixel2 = rgbArrayToString(rgbNumbers2);
+      rgbNumbers2 = [newColor2, rgbNumbers2[GREEN], rgbNumbers2[BLUE]];
+      image[r][c] = rgbArrayToString(rgbNumbers1);
+      image[r][c+1] = rgbArrayToString(rgbNumbers2);
+    }
+  }
+}
+
+function smudgeLeft(){
+	for(var r = 0; r <= image.length -1; r++){
+		var row = image[r];
+		for(var c = 0; c <= row.length - 2; c++){
+			var pixel1 = image[r][c + 1];
+      var pixel2 = image[r][c];
+			var rgbNumbers1 = rgbStringToArray(pixel1);
+      var rgbNumbers2 = rgbStringToArray(pixel2);
+			var newColor1 = keepInBounds(rgbNumbers1[GREEN] - (rgbNumbers1[GREEN] * .55));	
+      var newColor2 = keepInBounds(rgbNumbers2[GREEN] + (rgbNumbers1[GREEN] * .55));
+			rgbNumbers1 = [rgbNumbers1[RED], newColor1, rgbNumbers1[BLUE]];
+      rgbNumbers2 = [rgbNumbers2[RED], newColor2,  rgbNumbers2[BLUE]];
+      image[r][c + 1] = rgbArrayToString(rgbNumbers1);
+      image[r][c] = rgbArrayToString(rgbNumbers2);
     }
   }
 }
