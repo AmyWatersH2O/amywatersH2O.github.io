@@ -74,7 +74,7 @@ function runProgram(){
     repositionDog();
     updateDoggo();
     redrawDog();
-    detectCollision();
+    didCollide();
 
   }
   
@@ -200,14 +200,29 @@ function runProgram(){
              .css("top", dogPositionY);
 
   }
+  var collided = false;
+
+  function resetFlag(){
+    collided = false;
+  }
+  function didCollide(){
+    if(collided === false){
+      detectCollision();
+    }
+  }
+
   function detectCollision(){
     if((doggo.rightX >= girl.leftX) &&
       (doggo.leftX <= girl.rightX) &&
       (doggo.bottomY >= girl.topY) &&
       (doggo.topY <= girl.bottomY) ){
-    changeColors();
+        collided = true;
+        setTimeout(resetFlag, 3000);
+        changeColors();
     }
   }
+  
+  
   var isIt = "playerRight";
   function changeColors(){
     
