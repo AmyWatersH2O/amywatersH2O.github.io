@@ -23,7 +23,7 @@ function applyAndRender() {
   //applyFilter(reddify);
   //applyFilterNoBackground(decreaseBlue);
   //applyFilterNoBackground(increaseGreenByBlue);
-  smudge();
+  smudge(pixel1, pixel2);
   
 
   // do not change the below line of code
@@ -90,20 +90,21 @@ function increaseGreenByBlue(pixelC){
 
 // CHALLENGE code goes below here
 
-function  makeNewColor(color){
-    rgbNumbers[color] * .25;
-		}
 
-function smudge(pixel1, pixel2 ) {
+function smudge(pixel1, pixel2) {
 	for(var r = image.length-1; r >=0; r--){
 		var row = image[r];
 		for(var c = row.length - 2; c >= 0; c--){
 			var pixel1 = image[r][c];
       var pixel2 = image[r][c+1];
-			var rgbNumbers = rgbStringToArray(pixel1);
-			var newColor = makeNewColor(RED);	
-			var newRgbString = rgbArrayToString(newColor);
-			pixel2 = newRgbString;
+			var rgbNumbers1 = rgbStringToArray(pixel1);
+      var rgbNumbers2 = rgbStringToArray(pixel2);
+			var newColor1 = keepInBounds(rgbNumbers1[RED] - (rgbNumbers1[RED] * .25));	
+      var newColor2 = keepInBounds(rgbNumbers2[RED] + (rgbNumbers1[RED] * .25));
+			rgbNumbers1 = [newColor1, rgbNumbers1[GREEN], rgbNumbers1[BLUE]];
+      rgbNumbers2 = [newColor2, rgbNumbers2[GREEN], rgbNumbers[BLUE]];
+      pixel1 = rgbArrayToString(rgbNumbers1);
+      pixel2 = rgbArrayToString(rgbNumbers2);
     }
   }
 }
