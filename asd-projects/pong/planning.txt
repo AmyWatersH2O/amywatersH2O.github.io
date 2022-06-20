@@ -7,8 +7,7 @@ User Story / Gameplay
         5. if the ball collides with one paddle, it reverses direction and increases speed
         6. if the ball does not collide with the paddle,
             a. it relocates at the paddle of the opposite player 
-            b. after a 2 second delay
-            c. and the score of the opposite player increases by 1
+            b. and the score of the opposite player increases by 1
         7. When either score reaches 11, the game ends.
     What are the conditions when the game begins?
         1. both paddles are centered on the y axis
