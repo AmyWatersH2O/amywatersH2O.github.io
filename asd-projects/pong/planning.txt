@@ -1,0 +1,77 @@
+User Story / Gameplay
+    Describe the gameplay
+        1. On a board divided by a "net"
+        2. two players each have a paddle on opposite sides of the board
+        3. each paddle is controled by keyboard events
+        4. a "ball" object moves from one side to the other
+        5. if the ball collides with one paddle, it reverses direction and increases speed
+        6. if the ball does not collide with the paddle,
+            a. it relocates at the paddle of the opposite player 
+            b. after a 2 second delay
+            c. and the score of the opposite player increases by 1
+        7. When either score reaches 11, the game ends.
+    What are the conditions when the game begins?
+        1. both paddles are centered on the y axis
+        2. the ball begins moving across the board
+        3. both scores are 0
+    Does the game have an end? If so, what are the conditions for when it ends?
+        The game ends when the score of one player = 11
+    What ifs will there be?
+        1. if the ball collides with one paddle, it reverses direction and increases speed
+        2. if the ball does not collide with the paddle  
+            a. it leaves the board and game pauses  
+            b. the score of the opposite player increases by 1
+            c. checks the score to see if the end game condition has been met
+        3. if the end game condition has been met, ends game
+        4. if the end game condition has not been met, 
+        5. and if the mouse is clicked, the ball is relocated to the opposite paddle and begins moving 
+        
+
+Visual Game Components:
+    What are the visual game components? For example, in Bouncing Box, the game components were the board and the box.
+        1. board
+        2. paddle Left
+        3. paddle right
+        4. "ball"
+        5. score boxes
+    Which will be static? (the board)
+        1. only the board will truly be static
+        2. however, the score boxes will be static, but the content will change
+    Which will be animated? (the box)
+        1. both paddles will be animated, but move only on the y axis
+        2. the "ball" will move on both axes
+    What data will you need to manage each game component? For example, in Bouncing Box, the data values were positionX, speedX, and points.
+        1. paddleLPositionY
+        2. paddleLSpeedY
+        3. paddleRPositionY
+        4. paddleRSpeedY
+        5. ballPositionX
+        6. ballPositionY
+        7. ballSpeedX
+        8. ballSpeedY
+
+Events / Logic
+    What events will occur in this game? (timer events, keyboard events, clicking events?)
+        1. an update function to redraw the ball and paddles
+        2. a pause function to pause the timer when the ball leaves the board
+        3. key down events for both paddles
+        4. key up events for both paddles
+        5. mouse click function to begin / pause the game
+
+    How do those events affect the data of the program?
+        1. the update function would change the position of the ball and paddles
+        2. the pause function would change the timer
+        3. the key up and key down events would change the speed of the paddles
+        4. the mouse click would change the progression of the timer
+
+    For each "event", write out the high-level logic of what will happen. It is better (and tricky) to be as specific as you can while remaining high-level!
+        1. if the mouse is clicked, the timer will start and the update function will run
+        2. if the down key is pressed, the Right paddle will move down until it reaches the bottom of the board
+        3. if the down key is release, the Right paddle will stop moving.
+        4. if the S key is pressed, the Left paddle will move down until it reaches the bottom of the board
+        5. if the S key is pressed, the Left paddlw will stop moving.
+        5. if the up key is pressed, the Right paddle will move up until it reaches the top of the board
+        6. if the up key is released, the Right paddle will stop moving.
+        7. if the W key is pressed, the Left paddle will move up until it reaches the top of the board.
+        8. if the W key is released, the Left paddle will stop moving.
+
