@@ -1,0 +1,66 @@
+Snake Planning
+User Story / Gameplay
+
+•Describe the gameplay
+        1. One player uses the up, down, right, and left keys to move the head of the “snake” around the board to  connect with the “apple”
+        2. If the head of the snake connects with the apple, one square is added to the back of the snake, and
+        3. the apple appears in a random location
+        4. the player’s score increases by 1 with each square the snake collects
+        5. the game ends when the head of the snake collides with another square on the snake or with the edge of the board.
+•What are the conditions when the game begins?
+        1. The first square of the snake is placed an a random X & Y position as is the “apple”.
+        2. The score is set to 0.
+•Does the game have an end? If so, what are the conditions for when it ends?
+        the game ends when the head of the snake collides with another square of the snake itself or with the edge of the board.
+•What ifs will there be?
+        1. if the head of the snake collides with the apple, 
+            a. a square will be added to the end of the snake
+            b. the score will increase one point
+            c. the apple will reappear in a random location
+            d. the speed will increase
+        2. if the head of the snake moves, all of the attached squares must move to the position of the previous square
+        3. if the head collides with a non-apple square, the game ends
+        4. if the head collides with the edge of the board, the game ends
+
+Visual Game Components:
+
+•What are the visual game components? For example, in Bouncing Box, the game components were the board and the box.
+        1. the board
+        2. the apple
+        3. the snake head
+        4. the snake tail
+        5. 4the score board43
+
+•Which will be static? (the board)
+        1. the board
+        2. the score box
+•Which will be animated? (the box)
+        1. The head of the snake will be animated
+        2. the “apple” will not move unless a collision is detected, then it will be redrawn in a random location.
+•What data will you need to manage each game component? For example, in Bouncing Box, the data values were positionX, speedX, and points.
+    	1. apple.x, apple.y
+    	2. snakeHead.x, snakeHead.y
+    	3. snakeSpeed.x, snakeSpeed.y
+    	4. points
+    	5. apple width, apple height
+    	6. snake section width, snake section height
+
+Events / Logic
+•What events will occur in this game? (timer events, keyboard events, clicking events?)
+    	1. timer to update position and redraw functions
+    	2. key down functions to change direction (no key up, or there would be no challenge to the game.)
+•How do those events affect the data of the program?
+    	1. the timer function will update every set number of ticks and reposition and redraw the snake in response to the key down events.
+    	2. the key down events will move the head of the snake up, down, right, or left until another condition is met.
+•For each "event", write out the high-level logic of what will happen. It is better (and tricky) to be as specific as you can while remaining high-level!
+    	1. When the timer updates
+        	a. redraws the snake
+        	b. checks for collision with apple
+        	c. add a box to the end of the snake
+        	d. updates points
+        	e. redraws apple in random open space
+        	f. checks for collision with body
+        	g. ends game
+        	h. checks for collision with edge of board
+        	i. ends game
+    	2. for key down, the direction of the “movement” of the snake head
