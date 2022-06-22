@@ -4,7 +4,7 @@ body {
 }
 
 #board {
-  width: 660px;
+  width: 750px;
   height: 440px;
   border: 1px solid white;
   background-color: rgb(10, 10, 10);
@@ -25,6 +25,63 @@ body {
   height: 20px;
   border-radius: 10px;
   position: absolute;
-  left: 100px;   /* Uncomment if you want to set a "starting" position */
-  top: 100px;    /* Uncomment if you want to set a "starting" position */
+  left: 365px;   /* Uncomment if you want to set a "starting" position */
+  top: 220px;    /* Uncomment if you want to set a "starting" position */
+}
+#leftPaddle {
+  background-image: url("img/blue-paddle.png");
+  background-size: 100% 100%;
+  width: 50px;
+  height: 80px;
+  border:rgb(244, 250, 253) solid 3px;
+  border-radius: 10px;
+  position: absolute;
+  left: 0px;
+  top: 175px;
+}
+#rightPaddle {
+  background-image: url("img/red-paddle.png");
+  background-size: 100% 100%;
+  width: 50px;
+  height: 80px;
+  border:rgb(244, 250, 253) solid 3px;
+  border-radius: 10px;
+  position: absolute;
+  left: 695px;
+  top: 175px;
+}
+#scoreBoard {
+  background-color:rgb(222, 196, 247);
+  border:rgb(10, 10, 10) 3px solid;
+  border-radius: 10px;
+  width: 750px;
+  height: 80px;
+}
+h1 {
+  position: absolute;
+  left: 305px;
+}
+.player {
+  border:rgb(10, 10, 10) solid 3px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size:larger;
+  margin: 20px 5px 20px 5px;
+  
+}
+#namePlayer1 {
+  background-color: rgb(252, 132, 132);
+  float: right;
+}
+#scorePlayer1 {
+  background-color: rgb(252, 132, 132);
+  float: right;
+}
+#namePlayer2 {
+  background-color: rgb(162, 190, 250);
+  float: left;
+}
+#scorePlayer2 {
+  background-color: rgb(162, 190, 250);
+  float: left;
 }
