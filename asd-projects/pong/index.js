@@ -49,6 +49,9 @@ function runProgram() {
     keepPaddleOnBoard(rightPaddle);
     keepPaddleOnBoard(leftPaddle);
     handleBall();
+    bounceBallX(rightPaddle);
+    bounceBallX(leftPaddle);
+    didWin();
 
   }
 
@@ -105,8 +108,10 @@ function runProgram() {
   }
 
   function startBall() {
+    ball.x = 365;
+    ball.y = 220;
     $(ball.id).css("left", 365);
-    $(ball.id).css("right", 220);
+    $(ball.id).css("top", 220);
     var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
     ball.speedX = randomNum;
     var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
@@ -135,10 +140,18 @@ function runProgram() {
         paddle.y -= paddle.speedY;
       }
     }
-    function bounceBall(){
-      var collided = wallCollision(ball);
+    function bounceBallY(){
+      let collided = wallCollision(ball);
         if(collided === true){
         ball.speedY *= -1;
+      }
+    }
+    function bounceBallX(paddle){
+      let collided = doCollide(ball, paddle);
+        if(collided === true){
+        ball.speedX *= -1;
+        ball.speedY *= -1;
+
       }
     }
     function handleBall(){
@@ -151,14 +164,38 @@ function runProgram() {
         $("#scorePlayer2").text(scorePlayer2);
         startBall();
       }else {
-       bounceBall();
+       bounceBallY();
       }
     }
-    
+    function didWin(){
+      if(scorePlayer1 === 11 || scorePlayer2 ===11){
+        endGame();
+      }
+    }
+
+    function doCollide(square1, square2) {
+      square1.leftX = square1.x;
+      square1.topY = square1.y;
+      square1.rightX = square1.x + square1.width;
+      square1.bottomY = square1.y + square1.height;
+      
+      square2.leftX = square2.x;
+      square2.topY = square2.y;
+      square2.rightX = square2.x + square2.width;
+      square2.bottomY = square2.y + square2.height;
+
+      if(square1.topY < square2.bottomY && square1.bottomY > square2.topY && square1.rightX > square2.leftX && square1.leftX < square2.rightX){
+        return true
+        }else{
+          return false;
+        }
+  }
+   
 
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
+    alert("Game over!");
 
     // turn off event handlers
     $(document).off();
