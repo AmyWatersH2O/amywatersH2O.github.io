@@ -20,8 +20,9 @@ function runProgram() {
   const BOARD_HEIGHT = $("#board").height();
 
   // Other Variables
-
-  var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
+  var scorePlayer1 = 0;
+  var scorePlayer2 = 0
+  
 
   // Game Item Objects
   var ball = GameItem("#ball");
@@ -43,6 +44,11 @@ function runProgram() {
   */
   function newFrame() {
     moveObject(ball);
+    moveObject(rightPaddle);
+    moveObject(leftPaddle);
+    keepPaddleOnBoard(rightPaddle);
+    keepPaddleOnBoard(leftPaddle);
+    handleBall();
 
   }
 
@@ -99,18 +105,56 @@ function runProgram() {
   }
 
   function startBall() {
-    ball.css("left", 365);
-    ball.css("right", 220);
+    $(ball.id).css("left", 365);
+    $(ball.id).css("right", 220);
+    var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
     ball.speedX = randomNum;
+    var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
     ball.speedY = randomNum;
   }
 
   function moveObject(object) {
-    object.x = object.x += object.speedX;
-    object.y = object.y += object.speedY;
+    object.x += object.speedX;
+    object.y += object.speedY;
     $(object.id).css("left", object.x);
     $(object.id).css("top", object.y);
   }
+
+  function wallCollision(object){
+    if((object.y  < 0) || (object.y + $(object.id).height() > BOARD_HEIGHT)){
+        return true;
+      }
+    // if((object.x  < 0) || (object.x + $(object.id).width() > BOARD_WIDTH)){
+    //     return true;
+    //   }
+  }
+      
+    function keepPaddleOnBoard(paddle){
+      var collided = wallCollision(paddle);
+      if(collided === true){
+        paddle.y -= paddle.speedY;
+      }
+    }
+    function bounceBall(){
+      var collided = wallCollision(ball);
+        if(collided === true){
+        ball.speedY *= -1;
+      }
+    }
+    function handleBall(){
+      if(ball.x < 0){
+        scorePlayer1 +=1;
+        $("#scorePlayer1").text(scorePlayer1);
+        startBall();
+      }else if(ball.x + $(ball.id).width() > BOARD_WIDTH){
+        scorePlayer2 +=1;
+        $("#scorePlayer2").text(scorePlayer2);
+        startBall();
+      }else {
+       bounceBall();
+      }
+    }
+    
 
   function endGame() {
     // stop the interval timer
