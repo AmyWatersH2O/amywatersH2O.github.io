@@ -34,14 +34,71 @@ function runProgram(){
   /* 
   Called in response to events.
   */
-  function handleEvent(event) {
-
-  }
+    function handleKeyDown(event) {
+      if (event.which === KEY.UP) {
+        snake.speedY = -5;
+      }
+      if (event.which === KEY.DOWN) {
+        snake.speedY = 5;
+      }
+      if (event.which === KEY.S) {
+        snake.speedY = 5;
+      }
+      if (event.which === KEY.W) {
+        snake.speedY = -5
+      }
+    }
+  
+  
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
+  function GameItem(elementId) {
+    var gameItem = {};
+    gameItem.id = elementId;
+    gameItem.x = parseFloat($(elementId).css('left'));
+    gameItem.y = parseFloat($(elementId).css('top'));
+    gameItem.width = $(elementId).width();
+    gameItem.height = $(elementId).height();
+    gameItem.speedX = 0;
+    gameItem.speedY = 0;
+    return gameItem;
+  }
 
+  function startSnake() {
+    snake.x = 160;
+    snake.y = 20;
+    $(snake.id).css("left", 160);
+    $(snake.id).css("top", 20);
+    var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
+    snake.speedX = randomNum;
+    var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
+    snake.speedY = randomNum;
+  }
+
+  function moveObject(object) {
+    object.x += object.speedX;
+    object.y += object.speedY;
+    $(object.id).css("left", object.x);
+    $(object.id).css("top", object.y);
+  }
+
+  function wallCollision(object){
+    if((object.y  < 0) || (object.y + $(object.id).height() > BOARD_HEIGHT)){
+        return true;
+      }
+    if((object.x  < 0) || (object.x + $(object.id).width() > BOARD_WIDTH)){
+         return true;
+       }
+  }
+      
+    function keepSnakeOnBoard(){
+      var collided = wallCollision(snake);
+      if(collided === true){
+        snake.y -= snake.speedY;
+      }
+    }
   
   function endGame() {
     // stop the interval timer

@@ -162,13 +162,15 @@ function runProgram() {
       
           if (Math.abs(ballDistancePercentX) < Math.abs(ballDistancePercentY)) {
             ball.speedY *= -1;
+            ball.y += paddle.speedY + ball.speedY;
           }
           else {
             ball.speedX *= -1;
           }
       
 
-       }
+    
+        }
     }
     function handleBall(){
       if(ball.x < 0){
@@ -184,7 +186,7 @@ function runProgram() {
       }
     }
     function didWin(){
-      if(scorePlayer1 === 11 || scorePlayer2 ===11){
+      if(scorePlayer1 === 11 || scorePlayer2 === 11){
         endGame();
       }
     }
