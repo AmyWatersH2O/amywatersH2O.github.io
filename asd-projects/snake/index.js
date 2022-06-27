@@ -10,8 +10,29 @@ function runProgram(){
   // Constant Variables
   var FRAME_RATE = 60;
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
+  const BOARD_WIDTH = $("#board").width();
+  const BOARD_HEIGHT = $("#board").height();
+  const snakeHead = snake[0];
+  const KEY = {
+        LEFT: 37,
+        UP: 38,
+        RIGHT: 39,
+        DOWN: 40,
+        W: 87,
+        A: 65,
+        S: 83,
+        D: 68,
+  }
   
+
   // Game Item Objects
+  var apple = GameItem("#apple");
+  var snake = GameItem("#snake");
+
+ //Other variables
+  var score = 0;
+  var randomSquareX = Math.floor(Math.random() * (BOARD_WIDTH - apple.width) / apple.width) * apple.width;
+  var randomSquareY = Math.floor(Math.random() * (BOARD_HEIGHT - apple.height) / apple.height) * apple.height;
 
 
   // one-time setup
@@ -27,7 +48,8 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    
+    startSnake();
+    placeApple();
 
   }
   
@@ -47,6 +69,20 @@ function runProgram(){
       if (event.which === KEY.W) {
         snake.speedY = -5
       }
+      if(event.which === KEY.A){
+        snakeSpeedX = -5;
+      }
+      if(event.which === KEY.D){
+        snakeSpeedX = 5;
+      }
+      if(event.which === KEY.S){
+        snakeSpeedY = 5;
+      }
+      if(event.which === KEY.W){
+        snakeSpeedY = -5
+      }
+  
+    }
     }
   
   
@@ -76,7 +112,25 @@ function runProgram(){
     var randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
     snake.speedY = randomNum;
   }
+  function placeApple(){
+    apple.x = randomSquareX;
+    apple.y = randomSquareY;
+    for(var i = 0; i < snake.length; i++){
+      if(apple.x === snake[i].x && apple.y === snake[i].y)
+        placeApple();
+    }
 
+  }
+
+  function handleSnake(){
+    
+    if(snakeHead.x < 0){
+      startBall();
+    }else if(ball.x + $(ball.id).width() > BOARD_WIDTH){
+      scorePlayer2 +=1;
+      $("#scorePlayer2").text(scorePlayer2);
+      startBall();
+    }
   function moveObject(object) {
     object.x += object.speedX;
     object.y += object.speedY;
@@ -84,21 +138,15 @@ function runProgram(){
     $(object.id).css("top", object.y);
   }
 
-  function wallCollision(object){
-    if((object.y  < 0) || (object.y + $(object.id).height() > BOARD_HEIGHT)){
-        return true;
+  function wallCollision(){
+    if((snake[0].y  < 0) || (snake[0].y + $(snake.id).height() > BOARD_HEIGHT)){
+        endGame();
       }
-    if((object.x  < 0) || (object.x + $(object.id).width() > BOARD_WIDTH)){
-         return true;
+    if((snake[0].x  < 0) || (snake[0].x + $(snake.id).width() > BOARD_WIDTH)){
+         endGame();
        }
   }
       
-    function keepSnakeOnBoard(){
-      var collided = wallCollision(snake);
-      if(collided === true){
-        snake.y -= snake.speedY;
-      }
-    }
   
   function endGame() {
     // stop the interval timer
