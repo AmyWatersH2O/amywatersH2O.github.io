@@ -145,14 +145,30 @@ function runProgram() {
         if(collided === true){
         ball.speedY *= -1;
       }
-    }
-    function bounceBallX(paddle){
-      let collided = doCollide(ball, paddle);
-        if(collided === true){
-        ball.speedX *= -1;
-        ball.speedY *= -1;
+     }
+     function bounceBallX(paddle){
+       let collided = doCollide(ball, paddle);
+         if(collided === true){
+          var ballMiddleX = (ball.x + ball.width / 2);
+          var paddleMiddleX = (paddle.x + paddle.width / 2);
+          var ballMiddleY = (ball.y + ball.height / 2);
+          var paddleMiddleY = (paddle.y + paddle.height / 2);
+      
+          var ballRelX = ballMiddleX - paddleMiddleX;
+          var ballRelY = ballMiddleY - paddleMiddleY;
+      
+          var ballDistancePercentX = ballRelX / paddle.width;
+          var ballDistancePercentY = ballRelY / paddle.height;
+      
+          if (Math.abs(ballDistancePercentX) < Math.abs(ballDistancePercentY)) {
+            ball.speedY *= -1;
+          }
+          else {
+            ball.speedX *= -1;
+          }
+      
 
-      }
+       }
     }
     function handleBall(){
       if(ball.x < 0){
