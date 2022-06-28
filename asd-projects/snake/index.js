@@ -92,10 +92,6 @@ function runProgram() {
     }
 
   }
-
-
-
-
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -125,27 +121,44 @@ function runProgram() {
     apple.x = getRandomSquare(apple);
     apple.y = getRandomSquare(apple);
     for (var i = 0; i < snake.length; i++) {
-      if (apple.x === snake[i].x && apple.y === snake[i].y) {
+      if (doCollide(apple, snakeHead) === true) {
         placeApple();
-      }else {
-      $(apple.id).css("left", apple.x);
-      $(apple.id).css("top", apple.y);
+      } else {
+        $(apple.id).css("left", apple.x);
+        $(apple.id).css("top", apple.y);
       }
     }
   }
-  function createElement(id){
+  function createElement(id) {
     $("<div>").attr("id", id)
-              .addClass("snakeBody")
-              .appendTo("#board");
+      .addClass("snakeBody")
+      .appendTo("#board");
   }
-  function addBodyPiece(){
+  function addBodyPiece() {
     var nextId = "snake" + snake.length;
     createElement(nextId);
     var newPiece = GameItem("#" + nextId);
     snake.push(newPiece);
   }
+  function doCollide(square1, square2) {
+    square1.leftX = square1.x;
+    square1.topY = square1.y;
+    square1.rightX = square1.x + square1.width;
+    square1.bottomY = square1.y + square1.height;
+
+    square2.leftX = square2.x;
+    square2.topY = square2.y;
+    square2.rightX = square2.x + square2.width;
+    square2.bottomY = square2.y + square2.height;
+
+    if (square1.topY < square2.bottomY && square1.bottomY > square2.topY && square1.rightX > square2.leftX && square1.leftX < square2.rightX) {
+      return true
+    } else {
+      return false;
+    }
+  }
   function eatsApple() {
-    if (snakeHead.x === apple.x && snakeHead.y === apple.y) {
+    if (doCollide(apple, snakeHead) === true) {
       score += 1;
       $("#score").text(score);
       placeApple();
@@ -155,18 +168,18 @@ function runProgram() {
     }
   }
   function moveSnake() {
-    snakeHead.x += snakeHead.speedX;
-    snakeHead.y += snakeHead.speedY;
-    $(snakeHead.id).css("left", snakeHead.x);
-    $(snakeHead.id).css("top", snakeHead.y);
-    if(snake.length > 1){
-      for (var i = snake.length-1; i > 0; i--) {
+    if (snake.length > 1) {
+      for (var i = snake.length - 1; i > 0; i--) {
         snake[i].x = snake[i - 1].x;
         snake[i].y = snake[i - 1].y;
         $(snake[i].id).css("left", snake[i].x);
         $(snake[i].id).css("top", snake[i].y);
       }
-    }    
+    }
+    snakeHead.x += snakeHead.speedX;
+    snakeHead.y += snakeHead.speedY;
+    $(snakeHead.id).css("left", snakeHead.x);
+    $(snakeHead.id).css("top", snakeHead.y);
   }
   function checkForCollision() {
     let collided = wallCollision();
@@ -175,9 +188,9 @@ function runProgram() {
     }
   }
   function wallCollision() {
-    if ((snakeHead.y < 0) || (snakeHead.y + $(snake.id).height() > BOARD_HEIGHT)) {
+    if ((snakeHead.y < 0) || (snakeHead.y + $(snakeHead.id).height() + 5 > BOARD_HEIGHT)) {
       return true;
-    } else if ((snakeHead.x < 0) || (snakeHead.x + $(snake.id).width() > BOARD_WIDTH)) {
+    } else if ((snakeHead.x < 0) || (snakeHead.x + $(snakeHead.id).width() + 5 > BOARD_WIDTH)) {
       return true;
     } else {
       return false;
