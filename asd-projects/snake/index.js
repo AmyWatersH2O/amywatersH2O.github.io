@@ -143,16 +143,18 @@ function runProgram() {
     }
   }
   function moveSnake() {
-    for (var i = snake.length - 1; i > 0; i--) {
-      snake[i].x = snake[i - 1].x;
-      snake[i].y = snake[i - 1].y;
-      $(snake[i].id).css("left", snake[i].x);
-      $(snake[i].id).css("top", snake[i].y);
-    }
     snakeHead.x += snakeHead.speedX;
     snakeHead.y += snakeHead.speedY;
     $(snakeHead.id).css("left", snakeHead.x);
     $(snakeHead.id).css("top", snakeHead.y);
+    if(snake.length > 1){
+      for (var i = snake.length-1; i > 0; i--) {
+        snake[i].x = snake[i - 1].x;
+        snake[i].y = snake[i - 1].y;
+        $(snake[i].id).css("left", snake[i].x);
+        $(snake[i].id).css("top", snake[i].y);
+      }
+    }    
   }
   function checkForCollision() {
     let collided = wallCollision();
