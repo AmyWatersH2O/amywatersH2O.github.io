@@ -75,19 +75,19 @@ function runProgram() {
       snake.speedX = 0;
     }
     if (event.which === KEY.A) {
-      snakeSpeedX = -5;
+      snake.speedX = -5;
       snake.speedY = 0;
     }
     if (event.which === KEY.D) {
-      snakeSpeedX = 5;
+      snake.speedX = 5;
       snake.speedY = 0;
     }
     if (event.which === KEY.RIGHT) {
-      snakeSpeedX = 5;
+      snake.speedX = 5;
       snake.speedY = 0;
     }
     if (event.which === KEY.LEFT) {
-      snakeSpeedX = -5;
+      snake.speedX = -5;
       snake.speedY = 0;
     }
 
