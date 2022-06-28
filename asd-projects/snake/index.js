@@ -59,36 +59,36 @@ function runProgram() {
   */
   function handleKeyDown(event) {
     if (event.which === KEY.UP) {
-      snake.speedY = -5;
-      snake.speedX = 0;
+      snakeHead.speedY = -3;
+      snakeHead.speedX = 0;
     }
     if (event.which === KEY.DOWN) {
-      snake.speedY = 5;
-      snake.speedX = 0;
+      snakeHead.speedY = 3;
+      snakeHead.speedX = 0;
     }
     if (event.which === KEY.S) {
-      snake.speedY = 5;
-      snake.speedX = 0;
+      snakeHead.speedY = 3;
+      snakeHead.speedX = 0;
     }
     if (event.which === KEY.W) {
-      snake.speedY = -5
-      snake.speedX = 0;
+      snakeHead.speedY = -3;
+      snakeHead.speedX = 0;
     }
     if (event.which === KEY.A) {
-      snake.speedX = -5;
-      snake.speedY = 0;
+      snakeHead.speedX = -3;
+      snakeHead.speedY = 0;
     }
     if (event.which === KEY.D) {
-      snake.speedX = 5;
-      snake.speedY = 0;
+      snakeHead.speedX = 3;
+      snakeHead.speedY = 0;
     }
     if (event.which === KEY.RIGHT) {
-      snake.speedX = 5;
-      snake.speedY = 0;
+      snakeHead.speedX = 3;
+      snakeHead.speedY = 0;
     }
     if (event.which === KEY.LEFT) {
-      snake.speedX = -5;
-      snake.speedY = 0;
+      snakeHead.speedX = -3;
+      snakeHead.speedY = 0;
     }
 
   }
@@ -124,20 +124,32 @@ function runProgram() {
   function placeApple() {
     apple.x = getRandomSquare(apple);
     apple.y = getRandomSquare(apple);
-    $(apple.id).css("left", apple.x);
-    $(apple.id).css("top", apple.y);
     for (var i = 0; i < snake.length; i++) {
       if (apple.x === snake[i].x && apple.y === snake[i].y) {
         placeApple();
+      }else {
+      $(apple.id).css("left", apple.x);
+      $(apple.id).css("top", apple.y);
       }
     }
+  }
+  function createElement(id){
+    $("<div>").attr("id", id)
+              .addClass("snakeBody")
+              .appendTo("#board");
+  }
+  function addBodyPiece(){
+    var nextId = "snake" + snake.length;
+    createElement(nextId);
+    var newPiece = GameItem("#" + nextId);
+    snake.push(newPiece);
   }
   function eatsApple() {
     if (snakeHead.x === apple.x && snakeHead.y === apple.y) {
       score += 1;
       $("#score").text(score);
       placeApple();
-      snake[snake.length] = GameItem("#snake");
+      addBodyPiece();
       snake[snake.length - 1].x = snake[snake.length - 2].x;
       snake[snake.length - 1].y = snake[snake.length - 2].y;
     }
