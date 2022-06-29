@@ -30,9 +30,9 @@ function runProgram() {
   var apple = GameItem("#apple");
   var snakeHead = GameItem("#snake");
   snake.push(snakeHead);
-  // snakeHead.width = snakeHead.height = 20;
-  // snakeHead.x = 20;
-  // snakeHead.y = 120;
+  snakeHead.width = snakeHead.height = 20;
+  snakeHead.x = 20;
+  snakeHead.y = 120;
 
   //Other variables
   var score = 0;
@@ -63,37 +63,53 @@ function runProgram() {
   Called in response to events.
   */
   function handleKeyDown(event) {
-    if (event.which === KEY.UP) {
-      snakeHead.speedY = -20;
-      snakeHead.speedX = 0;
+    if (snakeHead.speedY <= 0) {
+      if (event.which === KEY.UP) {
+        snakeHead.speedY = -20;
+        snakeHead.speedX = 0;
+      }
     }
-    if (event.which === KEY.DOWN) {
-      snakeHead.speedY = 20;
-      snakeHead.speedX = 0;
+    if (snakeHead.speedY >= 0) {
+      if (event.which === KEY.DOWN) {
+        snakeHead.speedY = 20;
+        snakeHead.speedX = 0;
+      }
     }
-    if (event.which === KEY.S) {
-      snakeHead.speedY = 20;
-      snakeHead.speedX = 0;
+    if (snakeHead.speedY <= 0) {
+      if (event.which === KEY.W) {
+        snakeHead.speedY = -20;
+        snakeHead.speedX = 0;
+      }
     }
-    if (event.which === KEY.W) {
-      snakeHead.speedY = -20;
-      snakeHead.speedX = 0;
+    if (snakeHead.speedY >= 0) {
+      if (event.which === KEY.S) {
+        snakeHead.speedY = 20;
+        snakeHead.speedX = 0;
+      }
     }
-    if (event.which === KEY.A) {
-      snakeHead.speedX = -20;
-      snakeHead.speedY = 0;
+    if (snakeHead.speedX <= 0) {
+      if (event.which === KEY.A) {
+        snakeHead.speedX = -20;
+        snakeHead.speedY = 0;
+      }
     }
-    if (event.which === KEY.D) {
-      snakeHead.speedX = 20;
-      snakeHead.speedY = 0;
+    if (snakeHead.speedX >= 0) {
+      if (event.which === KEY.D) {
+        snakeHead.speedX = 20;
+        snakeHead.speedY = 0;
+      }
     }
-    if (event.which === KEY.RIGHT) {
-      snakeHead.speedX = 20;
-      snakeHead.speedY = 0;
+    if (snakeHead.speedX >= 0) {
+      if (event.which === KEY.RIGHT) {
+        snakeHead.speedX = 20;
+        snakeHead.speedY = 0;
+      }
     }
-    if (event.which === KEY.LEFT) {
-      snakeHead.speedX = -20;
-      snakeHead.speedY = 0;
+    if (snakeHead.speedX <= 0) {
+      if (event.which === KEY.LEFT) {
+        snakeHead.speedX = -20;
+        snakeHead.speedY = 0;
+      }
     }
 
   }
@@ -148,12 +164,12 @@ function runProgram() {
   function eatsApple() {
     if (apple.x === snakeHead.x && apple.y === snakeHead.y) {
       score += 1;
-      if(score % 2 === 0){
+      if (score % 2 === 0) {
         clearInterval(interval);
         frame_rate += 1;
         frames_per_second_interval = 1000 / frame_rate;
         interval = setInterval(newFrame, frames_per_second_interval);
-        }
+      }
       $("#score").text(score);
       placeApple();
       addBodyPiece();
@@ -183,16 +199,16 @@ function runProgram() {
     }
 
     //check for snake collistions with itself//
-    for(var i = 2; i < snake.length; i++){
-      if(snakeHead.x === snake[i].x && snakeHead.y === snake[i].y){
+    for (var i = 2; i < snake.length; i++) {
+      if (snakeHead.x === snake[i].x && snakeHead.y === snake[i].y) {
         endGame();
       }
     }
   }
   function wallCollision() {
-    if ((snakeHead.y < 0) || (snakeHead.y + $(snakeHead.id).height()) > BOARD_HEIGHT){
+    if ((snakeHead.y < 0) || (snakeHead.y + $(snakeHead.id).height()) > BOARD_HEIGHT) {
       return true;
-    }else if((snakeHead.x < 0) || (snakeHead.x + $(snakeHead.id).width() > BOARD_WIDTH)) {
+    } else if ((snakeHead.x < 0) || (snakeHead.x + $(snakeHead.id).width() > BOARD_WIDTH)) {
       return true;
     } else {
       return false;
