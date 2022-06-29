@@ -145,7 +145,9 @@ function runProgram() {
     if (apple.x === snakeHead.x && apple.y === snakeHead.y) {
       score += 1;
       if(score % 2 === 0){
+        clearInterval(interval);
         frame_rate += 1;
+        setInterval(newFrame, frames_per_second_interval);
         }
       $("#score").text(score);
       placeApple();
@@ -180,13 +182,10 @@ function runProgram() {
       if(snakeHead.x === snake[i].x && snakeHead.y === snake[i].y){
         endGame();
       }
-
     }
   }
   function wallCollision() {
-    if ((snakeHead.y < 0) || (snakeHead.y + $(snakeHead.id).height() + 5 > BOARD_HEIGHT)) {
-      return true;
-    } else if ((snakeHead.x < 0) || (snakeHead.x + $(snakeHead.id).width() + 5 > BOARD_WIDTH)) {
+    if ((snakeHead.y < 0) || (snakeHead.y + $(snakeHead.id).height() > BOARD_HEIGHT) || (snakeHead.x < 0) || (snakeHead.x + $(snakeHead.id).width() > BOARD_WIDTH)) {
       return true;
     } else {
       return false;
