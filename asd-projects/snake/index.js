@@ -30,6 +30,9 @@ function runProgram() {
   var apple = GameItem("#apple");
   var snakeHead = GameItem("#snake");
   snake.push(snakeHead);
+  //snakeHead.width = snakeHead.height = 20;
+  // snakeHead.x = 20;
+  // snakeHead.y = 120;
 
   //Other variables
   var score = 0;
@@ -53,6 +56,7 @@ function runProgram() {
     moveSnake();
     eatsApple();
     checkForCollisions();
+
   }
 
   /* 
@@ -147,7 +151,7 @@ function runProgram() {
       if(score % 2 === 0){
         clearInterval(interval);
         frame_rate += 1;
-        setInterval(newFrame, frames_per_second_interval);
+        interval = setInterval(newFrame, frames_per_second_interval);
         }
       $("#score").text(score);
       placeApple();
@@ -185,7 +189,9 @@ function runProgram() {
     }
   }
   function wallCollision() {
-    if ((snakeHead.y < 0) || (snakeHead.y + $(snakeHead.id).height() > BOARD_HEIGHT) || (snakeHead.x < 0) || (snakeHead.x + $(snakeHead.id).width() > BOARD_WIDTH)) {
+    if ((snakeHead.y < 0) || (snakeHead.y + $(snakeHead.id).height()) > BOARD_HEIGHT){
+      return true;
+    }else if((snakeHead.x < 0) || (snakeHead.x + $(snakeHead.id).width() > BOARD_WIDTH)) {
       return true;
     } else {
       return false;
