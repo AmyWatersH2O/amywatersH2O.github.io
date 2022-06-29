@@ -30,7 +30,7 @@ function runProgram() {
   var apple = GameItem("#apple");
   var snakeHead = GameItem("#snake");
   snake.push(snakeHead);
-  //snakeHead.width = snakeHead.height = 20;
+  // snakeHead.width = snakeHead.height = 20;
   // snakeHead.x = 20;
   // snakeHead.y = 120;
 
@@ -151,6 +151,7 @@ function runProgram() {
       if(score % 2 === 0){
         clearInterval(interval);
         frame_rate += 1;
+        frames_per_second_interval = 1000 / frame_rate;
         interval = setInterval(newFrame, frames_per_second_interval);
         }
       $("#score").text(score);
