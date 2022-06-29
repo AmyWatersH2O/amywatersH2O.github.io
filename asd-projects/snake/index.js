@@ -6,10 +6,11 @@ function runProgram() {
   ////////////////////////////////////////////////////////////////////////////////
   //////////////////////////// SETUP /////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
+  var frame_rate = 7;
+  var frames_per_second_interval = 1000 / frame_rate;
 
   // Constant Variables
-  var FRAME_RATE = 60;
-  var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
+
   const BOARD_WIDTH = $("#board").width();
   const BOARD_HEIGHT = $("#board").height();
   const snake = [];
@@ -35,7 +36,7 @@ function runProgram() {
 
 
   // one-time setup
-  var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
+  var interval = setInterval(newFrame, frames_per_second_interval);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);  // change 'eventType' to the type of event you want to handle
   placeSnakeHead();
   placeApple();
@@ -51,7 +52,7 @@ function runProgram() {
   function newFrame() {
     moveSnake();
     eatsApple();
-    checkForCollision();
+    checkForCollisions();
   }
 
   /* 
@@ -59,35 +60,35 @@ function runProgram() {
   */
   function handleKeyDown(event) {
     if (event.which === KEY.UP) {
-      snakeHead.speedY = -3;
+      snakeHead.speedY = -20;
       snakeHead.speedX = 0;
     }
     if (event.which === KEY.DOWN) {
-      snakeHead.speedY = 3;
+      snakeHead.speedY = 20;
       snakeHead.speedX = 0;
     }
     if (event.which === KEY.S) {
-      snakeHead.speedY = 3;
+      snakeHead.speedY = 20;
       snakeHead.speedX = 0;
     }
     if (event.which === KEY.W) {
-      snakeHead.speedY = -3;
+      snakeHead.speedY = -20;
       snakeHead.speedX = 0;
     }
     if (event.which === KEY.A) {
-      snakeHead.speedX = -3;
+      snakeHead.speedX = -20;
       snakeHead.speedY = 0;
     }
     if (event.which === KEY.D) {
-      snakeHead.speedX = 3;
+      snakeHead.speedX = 20;
       snakeHead.speedY = 0;
     }
     if (event.which === KEY.RIGHT) {
-      snakeHead.speedX = 3;
+      snakeHead.speedX = 20;
       snakeHead.speedY = 0;
     }
     if (event.which === KEY.LEFT) {
-      snakeHead.speedX = -3;
+      snakeHead.speedX = -20;
       snakeHead.speedY = 0;
     }
 
@@ -121,7 +122,7 @@ function runProgram() {
     apple.x = getRandomSquare(apple);
     apple.y = getRandomSquare(apple);
     for (var i = 0; i < snake.length; i++) {
-      if (doCollide(apple, snakeHead) === true) {
+      if (apple.x === snake[i].x && apple.y === snake[i].y) {
         placeApple();
       } else {
         $(apple.id).css("left", apple.x);
@@ -140,26 +141,12 @@ function runProgram() {
     var newPiece = GameItem("#" + nextId);
     snake.push(newPiece);
   }
-  function doCollide(square1, square2) {
-    square1.leftX = square1.x;
-    square1.topY = square1.y;
-    square1.rightX = square1.x + square1.width;
-    square1.bottomY = square1.y + square1.height;
-
-    square2.leftX = square2.x;
-    square2.topY = square2.y;
-    square2.rightX = square2.x + square2.width;
-    square2.bottomY = square2.y + square2.height;
-
-    if (square1.topY < square2.bottomY && square1.bottomY > square2.topY && square1.rightX > square2.leftX && square1.leftX < square2.rightX) {
-      return true
-    } else {
-      return false;
-    }
-  }
   function eatsApple() {
-    if (doCollide(apple, snakeHead) === true) {
+    if (apple.x === snakeHead.x && apple.y === snakeHead.y) {
       score += 1;
+      if(score % 2 === 0){
+        frame_rate += 1;
+        }
       $("#score").text(score);
       placeApple();
       addBodyPiece();
@@ -181,10 +168,19 @@ function runProgram() {
     $(snakeHead.id).css("left", snakeHead.x);
     $(snakeHead.id).css("top", snakeHead.y);
   }
-  function checkForCollision() {
+  function checkForCollisions() {
+    //check for wall collisions//
     let collided = wallCollision();
     if (collided === true) {
       endGame();
+    }
+
+    //check for snake collistions with itself//
+    for(var i = 2; i < snake.length; i++){
+      if(snakeHead.x === snake[i].x && snakeHead.y === snake[i].y){
+        endGame();
+      }
+
     }
   }
   function wallCollision() {
